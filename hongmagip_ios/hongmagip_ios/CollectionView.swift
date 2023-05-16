@@ -7,9 +7,8 @@
 
 import UIKit
 
-class CollectionV:UICollectionView {
+class CollectionView:UICollectionView {
     //MARK: - UI ProPerties
-   
     
     //MARK: - Properties
     
@@ -30,7 +29,7 @@ class CollectionV:UICollectionView {
     
     //MARK: - Set Ui
     func SetView() {
-        
+
     }
     
     func Constraint() {

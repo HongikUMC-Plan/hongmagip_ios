@@ -14,7 +14,9 @@
 		BE8E7B1D2A126988000BC1CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE8E7B1C2A126988000BC1CF /* Assets.xcassets */; };
 		BE8E7B202A126988000BC1CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE8E7B1E2A126988000BC1CF /* LaunchScreen.storyboard */; };
 		BE8E7B282A126AA4000BC1CF /* BaseV.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8E7B272A126AA4000BC1CF /* BaseV.swift */; };
-		BE8E7B2A2A126B75000BC1CF /* CollectionV.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8E7B292A126B75000BC1CF /* CollectionV.swift */; };
+		BE8E7B2A2A126B75000BC1CF /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8E7B292A126B75000BC1CF /* CollectionView.swift */; };
+		BE8E7B2C2A1373AB000BC1CF /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8E7B2B2A1373AB000BC1CF /* CollectionViewCell.swift */; };
+		BE8E7B2E2A13E695000BC1CF /* DetailPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8E7B2D2A13E695000BC1CF /* DetailPopUpView.swift */; };
 		EDBEFF3E215EA875BF37D43F /* libPods-hongmagip_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 097700B4D2D61A7038C4DC92 /* libPods-hongmagip_ios.a */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +32,9 @@
 		BE8E7B1F2A126988000BC1CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BE8E7B212A126988000BC1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE8E7B272A126AA4000BC1CF /* BaseV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseV.swift; sourceTree = "<group>"; };
-		BE8E7B292A126B75000BC1CF /* CollectionV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionV.swift; sourceTree = "<group>"; };
+		BE8E7B292A126B75000BC1CF /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
+		BE8E7B2B2A1373AB000BC1CF /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		BE8E7B2D2A13E695000BC1CF /* DetailPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPopUpView.swift; sourceTree = "<group>"; };
 		C726C862EADEF077B7F8EC7A /* Pods-hongmagip_ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hongmagip_ios.release.xcconfig"; path = "Target Support Files/Pods-hongmagip_ios/Pods-hongmagip_ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,7 +92,9 @@
 				BE8E7B152A126987000BC1CF /* SceneDelegate.swift */,
 				BE8E7B172A126987000BC1CF /* ViewController.swift */,
 				BE8E7B272A126AA4000BC1CF /* BaseV.swift */,
-				BE8E7B292A126B75000BC1CF /* CollectionV.swift */,
+				BE8E7B292A126B75000BC1CF /* CollectionView.swift */,
+				BE8E7B2B2A1373AB000BC1CF /* CollectionViewCell.swift */,
+				BE8E7B2D2A13E695000BC1CF /* DetailPopUpView.swift */,
 				BE8E7B192A126987000BC1CF /* Main.storyboard */,
 				BE8E7B1C2A126988000BC1CF /* Assets.xcassets */,
 				BE8E7B1E2A126988000BC1CF /* LaunchScreen.storyboard */,
@@ -194,7 +200,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE8E7B2A2A126B75000BC1CF /* CollectionV.swift in Sources */,
+				BE8E7B2A2A126B75000BC1CF /* CollectionView.swift in Sources */,
+				BE8E7B2E2A13E695000BC1CF /* DetailPopUpView.swift in Sources */,
+				BE8E7B2C2A1373AB000BC1CF /* CollectionViewCell.swift in Sources */,
 				BE8E7B182A126987000BC1CF /* ViewController.swift in Sources */,
 				BE8E7B142A126987000BC1CF /* AppDelegate.swift in Sources */,
 				BE8E7B282A126AA4000BC1CF /* BaseV.swift in Sources */,
