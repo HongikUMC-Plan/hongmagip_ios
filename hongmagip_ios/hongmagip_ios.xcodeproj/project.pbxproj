@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE0031252A16170400F21B2D /* DetailPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0031242A16170400F21B2D /* DetailPopUpViewController.swift */; };
 		BE8E7B142A126987000BC1CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8E7B132A126987000BC1CF /* AppDelegate.swift */; };
 		BE8E7B162A126987000BC1CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8E7B152A126987000BC1CF /* SceneDelegate.swift */; };
 		BE8E7B182A126987000BC1CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8E7B172A126987000BC1CF /* ViewController.swift */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		097700B4D2D61A7038C4DC92 /* libPods-hongmagip_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hongmagip_ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5230681F940B4F000CDED99E /* Pods-hongmagip_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hongmagip_ios.debug.xcconfig"; path = "Target Support Files/Pods-hongmagip_ios/Pods-hongmagip_ios.debug.xcconfig"; sourceTree = "<group>"; };
+		BE0031242A16170400F21B2D /* DetailPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPopUpViewController.swift; sourceTree = "<group>"; };
 		BE8E7B102A126987000BC1CF /* hongmagip_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hongmagip_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE8E7B132A126987000BC1CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE8E7B152A126987000BC1CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				BE8E7B292A126B75000BC1CF /* CollectionView.swift */,
 				BE8E7B2B2A1373AB000BC1CF /* CollectionViewCell.swift */,
 				BE8E7B2D2A13E695000BC1CF /* DetailPopUpView.swift */,
+				BE0031242A16170400F21B2D /* DetailPopUpViewController.swift */,
 				BE8E7B192A126987000BC1CF /* Main.storyboard */,
 				BE8E7B1C2A126988000BC1CF /* Assets.xcassets */,
 				BE8E7B1E2A126988000BC1CF /* LaunchScreen.storyboard */,
@@ -200,6 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE0031252A16170400F21B2D /* DetailPopUpViewController.swift in Sources */,
 				BE8E7B2A2A126B75000BC1CF /* CollectionView.swift in Sources */,
 				BE8E7B2E2A13E695000BC1CF /* DetailPopUpView.swift in Sources */,
 				BE8E7B2C2A1373AB000BC1CF /* CollectionViewCell.swift in Sources */,

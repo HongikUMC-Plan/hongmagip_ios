@@ -9,8 +9,8 @@ import UIKit
 import SnapKit
 
 
-class DetailPopUpView: UIView {
-    private let restaurantLabel: UILabel = {
+class DetailPopUpView: UIScrollView {
+    lazy var restaurantLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
@@ -59,6 +59,10 @@ class DetailPopUpView: UIView {
     }
     
     func setRestaurant(_ restaurant: String) {
+        restaurantLabel.text = restaurant
+    }
+    
+    func configure(with restaurant: String) {
         restaurantLabel.text = restaurant
     }
 }

@@ -32,7 +32,11 @@ class CollectionViewCell: UICollectionViewCell {
     
     
     //MARK: - Properties
-   
+    
+    var isLiked: Bool = false
+    
+    weak var delegate: CollectionViewCellDelegate?
+    
     
     
     //MARK: - Define Method
@@ -47,9 +51,11 @@ class CollectionViewCell: UICollectionViewCell {
     }
     
     @objc func likeButtonTapped(_ sender: UIButton) {
-            sender.isSelected = !sender.isSelected
-        }
-
+        sender.isSelected = !sender.isSelected
+        delegate?.likeButtonTapped(for: self)
+       
+    }
+    
     //MARK: - Set Ui
     func SetView() {
         self.addSubview(titleLabel)
@@ -60,7 +66,7 @@ class CollectionViewCell: UICollectionViewCell {
         titleLabelConstraint()
         likeButtonConstraint()
     }
-
+    
     
     func titleLabelConstraint() {
         titleLabel.snp.makeConstraints { make in
@@ -77,10 +83,18 @@ class CollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with category: String) {
-            titleLabel.text = category
-        }
+        titleLabel.text = category
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        likeButton.isSelected = false
+    }
     
     
-    
-    
+}
+
+
+protocol CollectionViewCellDelegate: AnyObject {
+    func likeButtonTapped(for cell: CollectionViewCell)
 }
