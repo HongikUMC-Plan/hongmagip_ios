@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 
+
 class DetailPopUpView: UIView {
     private let restaurantLabel: UILabel = {
         let label = UILabel()

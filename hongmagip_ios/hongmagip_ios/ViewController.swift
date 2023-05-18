@@ -49,7 +49,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         setView()
         constraint()
         configurePopButton()
-        configurePopupView()
+//        configurePopupView()
         
     }
     
@@ -67,16 +67,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
     }
     
-    func showPopup(with restaurant: String) {
-        popUpView.setRestaurant(restaurant)
-        popUpView.isHidden = false
-     }
+//    func showPopup(with restaurant: String) {
+//        popUpView.isHidden = false
+//    }
+//
     
-    func configurePopupView() {
-        view.addSubview(popUpView)
-        popUpView.isHidden = true
-    }
-    
+//    func configurePopupView() {
+//        view.addSubview(popUpView)
+//        popUpView.snp.makeConstraints { make in
+//            make.center.equalToSuperview()
+//            make.width.equalTo(200)
+//            make.height.equalTo(300)
+//        }
+//        popUpView.isHidden = true
+//    }
     //MARK: - Set UI
     func setView() {
         
@@ -111,6 +115,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(200)
         }
     }
+   
+
     
     
 }
@@ -139,8 +145,9 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         
         if let selectedCategory = selectedCategory {
             let restaurant = selectedCategory.restaurants[indexPath.row]
-            showPopup(with: restaurant)
+//            showPopup(with: restaurant)
         }
+        
     }
 
     
