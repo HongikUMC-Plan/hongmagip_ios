@@ -4,6 +4,5 @@
 target 'hongmagip_ios' do
 	pod 'SnapKit'
 	pod 'lottie-ios'
-  
-
+	pod 'Google-Mobile-Ads-SDK'
 end

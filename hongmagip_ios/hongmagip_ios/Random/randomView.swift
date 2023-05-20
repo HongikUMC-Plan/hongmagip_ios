@@ -7,10 +7,12 @@
 
 import UIKit
 import SnapKit
+import Lottie
 
 class randomView: UIView {
-
     //MARK: - UI ProPerties
+    
+    weak var delegate: RandomViewDelegate?
     lazy var titleLabel:UILabel = {
        let label = UILabel()
         label.text = "랜덤 선택"
@@ -21,7 +23,7 @@ class randomView: UIView {
         
     }()
     
-    lazy var name:String = "식당"
+    public var name:String = "식당"
     
     lazy var randomRestaurant:UIButton = {
         let button = UIButton()
@@ -46,10 +48,7 @@ class randomView: UIView {
         
 
         return button
-        
     }()
-    
-  
     
     
     //MARK: - Define Method
@@ -66,15 +65,15 @@ class randomView: UIView {
     }
     
     @objc func randomRestaurantTapped(_ sender: UIButton) {
-       
+        delegate?.didTapRandomRestaurant(withName: name)
     }
-    
+
+
     @objc func randomButtonTapped(_ sender: UIButton) {
         let random = getRandomRestaurant()
         if let restaurant = random {
             name = restaurant.name
             randomRestaurant.setTitle("\(name)", for: .normal)
-            
         }
     }
    
@@ -122,4 +121,8 @@ class randomView: UIView {
         }
         
     }
+}
+
+protocol RandomViewDelegate: AnyObject {
+    func didTapRandomRestaurant(withName name: String)
 }

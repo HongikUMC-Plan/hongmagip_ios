@@ -8,15 +8,16 @@
 import UIKit
 import SnapKit
 
-class randomViewController: UIViewController {
+class randomViewController: UIViewController, RandomViewDelegate {
     //MARK: - UI ProPerties
     var initialView = randomView()
-
+    
     //MARK: - Define Method
     override func viewDidLoad() {
         super.viewDidLoad()
         SetView()
         Constraint()
+        initialView.delegate = self
     }
     
     //MARK: - Properties
@@ -35,6 +36,13 @@ class randomViewController: UIViewController {
         }
         
     }
-  
-
+     
+    func didTapRandomRestaurant(withName name: String) {
+        let destinationVC = DetailPopUpViewController() // 대상 ViewController를 적절히 초기화해야 합니다.
+        destinationVC.detailpopupview.restaurantLabel.text = name
+        
+        // ViewController를 present 합니다.
+        present(destinationVC, animated: true, completion: nil)
+    }
+    
 }

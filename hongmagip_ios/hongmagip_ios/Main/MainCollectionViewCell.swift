@@ -61,6 +61,7 @@ class MainCollectionViewCell: UICollectionViewCell {
     func SetView() {
         self.addSubview(titleLabel)
         self.addSubview(likeButton)
+        self.layer.cornerRadius = 10
     }
     
     func Constraint() {

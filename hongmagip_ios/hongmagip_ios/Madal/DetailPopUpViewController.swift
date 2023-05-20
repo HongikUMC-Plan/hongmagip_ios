@@ -13,6 +13,7 @@ class DetailPopUpViewController: UIViewController, UICollectionViewDelegate,UICo
     //MARK: - UI ProPerties
     lazy var detailpopupview = DetailPopUpView()
     var collectionView: UICollectionView?
+    var blogs: [Blog] = []
     
     lazy var bestRiviewLabel:UILabel = {
         let label = UILabel()
@@ -23,18 +24,17 @@ class DetailPopUpViewController: UIViewController, UICollectionViewDelegate,UICo
         return label
     }()
     
+    let instance = FetchData()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         SetView()
         Constraint()
+        instance.fetchData()
+    }
         
-    }
-    
     //cell 등록이 필수
-    func registerCells() {
-        collectionView?.register(reviewCollectionViewCell.self, forCellWithReuseIdentifier: "Identifier")
-    }
+    
     
     //MARK: - Properties
 
@@ -58,6 +58,9 @@ class DetailPopUpViewController: UIViewController, UICollectionViewDelegate,UICo
         registerCells()
     }
     
+    func registerCells() {
+        collectionView?.register(reviewCollectionViewCell.self, forCellWithReuseIdentifier: "Identifier")
+    }
     
     func Constraint() {
         detailpopupviewConstraint()
@@ -99,13 +102,10 @@ class DetailPopUpViewController: UIViewController, UICollectionViewDelegate,UICo
 
 }
 
-
-
-
 extension DetailPopUpViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return blogs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -124,27 +124,33 @@ extension DetailPopUpViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Identifier", for: indexPath) as! reviewCollectionViewCell
-        cell.backgroundColor = .black
-        
-        return cell
+        let blog = blogs[indexPath.row] // 파싱된 블로그 데이터 배열에서 해당 인덱스의 데이터 가져오기
+        cell.titleLabel.text = blog.title // 셀의 titleLabel에 블로그 제목 할당
+        cell.blogRivew.text = blog.description
+            return cell
     }
 
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        // 셀 내용의 크기에 따라 동적으로 셀 크기 계산
+//        let itemWidth = collectionView.bounds.width // 좌우 간격 제외한 너비
+//        let itemHeight: CGFloat = 100 // 기본 높이
+//        let itemSize = CGSize(width: itemWidth, height: itemHeight)
+//
+//        /*if let 바인딩을 사용하는 이유는 옵셔널 체이닝을 통해 안전하게 셀을 가져오기 위함, collectionView.cellForItem(at: indexPath)는 인덱스 경로에 대한
+//        cell을 반환하는데, 해당 셀이 존재하지 않을 경우 발생하는 에러를 방지.*/
+//        if let cell = collectionView.cellForItem(at: indexPath) as? reviewCollectionViewCell {
+//            // 설정된 내용에 따라 셀의 높이를 계산하거나 업데이트
+//            let contentSize = cell.contentView.systemLayoutSizeFitting(itemSize, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
+//            return CGSize(width: itemWidth, height: contentSize.height)
+//        }
+//
+//        return itemSize
+//    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // 셀 내용의 크기에 따라 동적으로 셀 크기 계산
-        let itemWidth = collectionView.bounds.width // 좌우 간격 제외한 너비
-        let itemHeight: CGFloat = 100 // 기본 높이
-        let itemSize = CGSize(width: itemWidth, height: itemHeight)
-        
-        /*if let 바인딩을 사용하는 이유는 옵셔널 체이닝을 통해 안전하게 셀을 가져오기 위함, collectionView.cellForItem(at: indexPath)는 인덱스 경로에 대한
-        cell을 반환하는데, 해당 셀이 존재하지 않을 경우 발생하는 에러를 방지.*/
-        if let cell = collectionView.cellForItem(at: indexPath) as? reviewCollectionViewCell {
-            // 설정된 내용에 따라 셀의 높이를 계산하거나 업데이트
-            let contentSize = cell.contentView.systemLayoutSizeFitting(itemSize, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
-            return CGSize(width: itemWidth, height: contentSize.height)
-        }
-        
-        return itemSize
+        return CGSize(width: collectionView.bounds.width, height: 100)
     }
+
 
     
 }

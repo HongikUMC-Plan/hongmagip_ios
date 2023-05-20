@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import GoogleMobileAds
 
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CollectionViewCellDelegate {
@@ -41,17 +42,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         return button
     }()
     
-    
+    lazy var admobView: GADBannerView = { // admob 부분
+        var view = GADBannerView()
+        view.adUnitID = "ca-app-pub-6434961075836011/7218713457"
+        view.load(GADRequest())
+        
+        return view
+    }()
     
     //MARK: - Properties
-
-    
     var selectedCategory: MealCategory?
     var clickcnt = 0
     var restaurantStates: [IndexPath: Bool] = [:]
-    
-    
-    
+
     //MARK: - Define Method
     
     override func viewDidLoad() {
@@ -60,7 +63,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         Constraint()
         configurePopButton()
         configureFirstButton()
-
+        
     }
     
     @objc func popButtonTapped(_ sender: UIButton) {
@@ -71,7 +74,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         popButton.isSelected = false
         configureFirstButton()
     }
-
+    
     
     @objc func randomButtonTapped(_ sender: UIButton) {
         present(randomView, animated:true)
@@ -103,14 +106,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             randomButton.isHidden = true
         }
     }
-
-
+    
+    
     
     
     
     //MARK: - Set UI
     func setView() {
-        
+        admobViewSetView()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView?.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: "Identifier")
         collectionView?.dataSource = self
@@ -125,12 +128,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
     }
     
+    func admobViewSetView(){
+        admobView.rootViewController = self
+        admobView.delegate = self
+        self.view.addSubview(admobView)
+    }
     
     func Constraint() {
         collectionViewConstraint()
         popButtonConstraint()
         randomButtonConstraint()
         instaButtonConstraint()
+        admobViewConstraint()
     }
     
     func collectionViewConstraint() {
@@ -165,107 +174,117 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
         }
     }
-
-
     
-  
+    func admobViewConstraint() {
+        admobView.snp.makeConstraints { make in
+            make.width.centerX.equalToSuperview()
+            make.height.equalTo(50)
+            make.bottom.equalToSuperview()
+        }
+    }
 }
+
+//MARK: - Extension
+extension ViewController: UICollectionViewDelegateFlowLayout {
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return categories.count
+    }
     
-    
-    //MARK: - Extension
-    extension ViewController: UICollectionViewDelegateFlowLayout {
-        
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return categories.count
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-            return 1
-        }
-        
-        
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-            return 1
-        }
-        
-        
-        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            selectedCategory = categories[indexPath.row]
-            collectionView.reloadData()
-            configurePopButton()
-            
-            if let selectedCategory = selectedCategory {
-                clickcnt += 1
-                if clickcnt > 1 {
-                    let restaurant = selectedCategory.restaurants[indexPath.row]
-                    if !restaurant.isLiked {
-                        restaurant.isLiked = true
-                        collectionView.reloadItems(at: [indexPath])
-                    }
-                    present(popUpView, animated: true)
-                    popUpView.detailpopupview.restaurantLabel.text = restaurant.name
-                }
-                
-            }
-            configureFirstButton()
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Identifier", for: indexPath) as! MainCollectionViewCell
-            cell.delegate = self
-            
-            if let selectedCategory = selectedCategory {
-                let restaurant = selectedCategory.restaurants[indexPath.row]
-                cell.configure(with: restaurant.name)
-                cell.likeButton.isHidden = false
-                cell.likeButton.isSelected = restaurantStates[indexPath] ?? false
-                
-                
-            } else {
-                let category = categories[indexPath.row].name
-                cell.configure(with: category)
-                cell.likeButton.isHidden = true
-            }
-            
-            cell.backgroundColor = .magenta
-            
-            return cell
-        }
-        
-        
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let width = collectionView.frame.width / 3 - 1 // 3등분하여 배치, 옆 간격이 1이므로 1을 빼줌
-            let size = CGSize(width: width, height: width)
-            return size
-        }
-        
-        func likeButtonTapped(for cell: MainCollectionViewCell) {
-            guard let indexPath = collectionView?.indexPath(for: cell) else { return }
-            
-            if let selectedCategory = selectedCategory {
-                let restaurant = selectedCategory.restaurants[indexPath.row]
-                let isLiked = !(restaurantStates[indexPath] ?? false)  // Invert the current state
-                restaurantStates[indexPath] = isLiked  // Store the updated state
-                cell.likeButton.isSelected = isLiked  // Update the likeButton state in the cell
-            }
-        }
-        
-        func getSelectedRestaurantTitles() -> [String] {
-            var selectedTitles: [String] = []
-            
-            for (indexPath, isSelected) in restaurantStates {
-                if isSelected {
-                    let category = categories[indexPath.section]
-                    let restaurant = category.restaurants[indexPath.row]
-                    selectedTitles.append(restaurant.name)
-                }
-            }
-            return selectedTitles
-        }
-        
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
     }
     
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
     
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedCategory = categories[indexPath.row]
+        collectionView.reloadData()
+        configurePopButton()
+        
+        if let selectedCategory = selectedCategory {
+            clickcnt += 1
+            if clickcnt > 1 {
+                let restaurant = selectedCategory.restaurants[indexPath.row]
+                if !restaurant.isLiked {
+                    restaurant.isLiked = true
+                    collectionView.reloadItems(at: [indexPath])
+                }
+                present(popUpView, animated: true)
+                popUpView.detailpopupview.restaurantLabel.text = restaurant.name
+            }
+            
+        }
+        configureFirstButton()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Identifier", for: indexPath) as! MainCollectionViewCell
+        cell.delegate = self
+        
+        if let selectedCategory = selectedCategory {
+            let restaurant = selectedCategory.restaurants[indexPath.row]
+            cell.configure(with: restaurant.name)
+            cell.likeButton.isHidden = false
+            cell.likeButton.isSelected = restaurantStates[indexPath] ?? false
+            
+            
+        } else {
+            let category = categories[indexPath.row].name
+            cell.configure(with: category)
+            cell.likeButton.isHidden = true
+        }
+        
+        cell.backgroundColor = .magenta
+        
+        return cell
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.frame.width / 3 - 1 // 3등분하여 배치, 옆 간격이 1이므로 1을 빼줌
+        let size = CGSize(width: width, height: width)
+        return size
+    }
+    
+    func likeButtonTapped(for cell: MainCollectionViewCell) {
+        guard let indexPath = collectionView?.indexPath(for: cell) else { return }
+        
+        if let selectedCategory = selectedCategory {
+            let restaurant = selectedCategory.restaurants[indexPath.row]
+            let isLiked = !(restaurantStates[indexPath] ?? false)  // Invert the current state
+            restaurantStates[indexPath] = isLiked  // Store the updated state
+            cell.likeButton.isSelected = isLiked  // Update the likeButton state in the cell
+        }
+    }
+    
+    func getSelectedRestaurantTitles() -> [String] {
+        var selectedTitles: [String] = []
+        
+        for (indexPath, isSelected) in restaurantStates {
+            if isSelected {
+                let category = categories[indexPath.section]
+                let restaurant = category.restaurants[indexPath.row]
+                selectedTitles.append(restaurant.name)
+            }
+        }
+        return selectedTitles
+    }
+    
+}
+
+extension ViewController : GADBannerViewDelegate {
+    public func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        bannerView.alpha = 0
+        UIView.animate(withDuration: 10) {
+            bannerView.alpha = 1
+        }
+    }
+}
+
+
 
